@@ -1,0 +1,50 @@
+I was facing the empty data proplem and i fixed it using h2 and here is what i did:
+
+this is the application .properties:
+spring.h2.console.enabled=true
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.sql.init.mode=always
+
+created import.sql and used this data:
+CREATE TABLE question (
+	id SERIAL PRIMARY KEY,
+	question_title varchar,
+	option1 varchar,
+	option2 varchar,
+	option3 varchar,
+	option4 varchar,
+	correct_answer varchar,
+	difficulty_level varchar,
+	category varchar
+);
+
+
+insert into question values (6, 'Java', 'Easy', '4', '5', '6', 'Compile error', 'What is the output of the following Java code snippet? "int x = 5;system.out.println(x++)"', '5');
+insert into question values (7, 'Java', 'Easy', 'true', 'false', '0', 'null', 'What is the default value of an uninitialized boolean variable', 'false');
+insert into question values (8, 'Python', 'Easy', 'count()', 'size()', 'length()', 'len()', 'Which python function is used to calculate the length of a list?', 'len()');
+insert into question values (9, 'Python', 'Easy', '[1, 2, 3]', '[1, 2, 3, 4]', '[4, 3, 2, 1]', 'Error', 'what is the output of the following python code snippet "x = [1, 2, 3] x.append(4) print(x)"', '[1, 2, 3, 4]');
+insert into question values (10, 'Python', 'Easy', 'int', 'float', 'str', 'list', 'In python which data type is mutable?', 'list');
+
+Igenerated getters, setters and toString  methods because lombok wasn't working for me
+
+and don't forget to add h2 dependency in pom.xml
+<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+hope that helps
+
+
+
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/question
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
